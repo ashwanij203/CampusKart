@@ -1,3 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Color Variables */
+:root {
+  --primary-color: #2563eb;
+  --secondary-color: #0f172a;
+  --background-color: #f8fafc;
+  --text-color: #334155;
+  --success-color: #22c55e;
+  --danger-color: #ef4444;
+}
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Poppins', sans-serif;
+}
