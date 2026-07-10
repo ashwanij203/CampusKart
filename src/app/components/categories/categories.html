@@ -1,0 +1,21 @@
+<section class="categories">
+    <h2>
+        Browse Categories
+    </h2>
+    <div class="category-grid">
+        @for(category of categories; track category.title){
+            <div class="card">
+                <div class="icon">
+                    {{category.icon}} 
+
+                </div>
+                <h3> 
+                    {{category.title}}
+                </h3>
+
+            </div>
+        } 
+
+    </div>
+
+</section>
