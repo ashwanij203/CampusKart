@@ -1,0 +1,19 @@
+<div class="product-card">
+    <img
+        [src]="product.image"
+        [alt]="product.title">
+    <div class="content">
+        <h3>{{ product.title }}</h3>
+        <h2>₹{{ product.price }}</h2>
+        <p>📍 {{ product.location }}</p>
+        <span>{{ product.condition }}</span>
+        <div class="buttons">
+            <button class="wishlist">
+                ❤️
+            </button>
+            <button class="details">
+                View Details
+            </button>
+        </div>
+    </div>
+</div>
