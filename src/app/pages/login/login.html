@@ -1,1 +1,63 @@
-<p>login works!</p>
+<section class="auth-container">
+    <div class="left-panel">
+        <img src="/images/login.png" alt="CampusKart">
+        <h1>Welcome to CampusKart</h1>
+        <p>
+            Buy and Sell Used Products
+            Within LPU Campus.
+        </p>
+    </div>
+    <div class="right-panel">
+        <div class="login-card">
+            <h2>Login</h2>
+            <p>Welcome Back 👋</p>
+            <form [formGroup]="loginForm">
+                <input
+                    type="email"
+                    placeholder="Email"
+                    formControlName="email">
+                @if(loginForm.get('email')?.touched &&
+                loginForm.get('email')?.invalid){
+                    <small class="error">
+                        Please enter a valid email.
+                    </small>
+                }
+                <div class="password-box">
+                    <input
+                        [type]="hidePassword ? 'password':'text'"
+                        placeholder="Password"
+                        formControlName="password">
+                    <button
+                        type="button"
+                        class="eye-btn"
+                        (click)="togglePassword()">
+
+                        <i
+                        class="bi"
+                        [class.bi-eye]="hidePassword"
+                        [class.bi-eye-slash]="!hidePassword">
+                        </i>
+                    </button>
+                </div>
+                @if(loginForm.get('password')?.touched &&
+                loginForm.get('password')?.invalid){
+                    <small class="error">
+                        Password must contain at least 6 characters.
+                    </small>
+                }
+                <button
+                    type="submit"
+                    class="login-btn"
+                    [disabled]="loginForm.invalid">
+                    Login
+                </button>
+            </form>
+            <p>
+                Don't have an account?
+                <a routerLink="/register">
+                    Register
+                </a>
+            </p>
+        </div>
+    </div>
+</section>

@@ -1,1 +1,39 @@
-<p>register works!</p>
+<section class="register-container">
+    <div class="register-card">
+        <h1>Create Account</h1>
+        <p>Join CampusKart today</p>
+        <form [formGroup]="registerForm">
+            <input
+                type="text"
+                placeholder="Full Name"
+                formControlName="fullName">
+            <input
+                type="text"
+                placeholder="Registration Number"
+                formControlName="registrationNumber">
+            <input
+                type="email"
+                placeholder="Email"
+                formControlName="email">
+            <input
+                type="password"
+                placeholder="Password"
+                formControlName="password">
+            <input
+                type="password"
+                placeholder="Confirm Password"
+                formControlName="confirmPassword">
+
+            <button type="submit">
+                Register
+            </button>
+        </form>
+
+        <p>
+            Already have an account?
+            <a routerLink="/login">
+                Login
+            </a>
+        </p>
+    </div>
+</section>
