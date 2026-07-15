@@ -1,1 +1,52 @@
-<p>product-details works!</p>
+<section class="section">
+    <div class="breadcrumb">Home / Products / {{ product.title }}</div>
+
+    <div class="product-details">
+        <div class="gallery">
+            <img class="main-image" [src]="selectedImage" />
+
+            <div class="thumbnails">
+                @for (image of product.images; track image) {
+                <img [src]="image" (click)="selectedImage = image" />
+                }
+            </div>
+        </div>
+        <div class="details card">
+            <h1>
+                {{ product.title }}
+            </h1>
+            <div class="rating">
+                ⭐⭐⭐⭐⭐
+                {{ product.rating }}
+            </div>
+            <h2>₹{{ product.price }}</h2>
+            <p>
+                <i class="bi bi-geo-alt"></i>
+                {{ product.location }}
+            </p>
+            <p>
+                <strong> Condition: </strong>
+                {{ product.condition }}
+            </p>
+            <p>👤 {{ product.seller }}</p>
+            <p>⏱ {{ product.posted }}</p>
+            <span class="badge"> ✔ Verified Seller </span>
+            <div class="actions">
+                <button class="btn btn-primary">
+                    <i class="bi bi-chat-dots"></i>
+                    Chat Seller
+                </button>
+                <button class="btn btn-secondary">
+                    <i class="bi bi-heart"></i>
+                    Wishlist
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="description card">
+        <h2>Description</h2>
+        <p>
+            {{ product.description }}
+        </p>
+    </div>
+</section>

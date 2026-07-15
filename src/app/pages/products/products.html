@@ -1,1 +1,79 @@
-<p>products works!</p>
+<section class="section">
+    <h1 class="section-title">
+        Browse Products
+    </h1>
+    <p class="section-subtitle">
+        Find the best deals from verified LPU students.
+    </p>
+    <div class="marketplace">
+        <aside class="sidebar card">
+            <h3>
+                Filters
+            </h3>
+            <input
+                class="input"
+                type="text"
+                placeholder="Search Products">
+            <div class="filter-group">
+                <label>
+                    Category
+                </label>
+                <select class="input">
+                    @for(category of categories; track category){
+                        <option>
+                            {{category}}
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>
+                    Price
+                </label>
+                <select class="input">
+                    <option>All Prices</option>
+                    <option>₹0 - ₹1000</option>
+                    <option>₹1000 - ₹5000</option>
+                    <option>₹5000 - ₹10000</option>
+                    <option>₹10000+</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>
+                    Condition
+                </label>
+                <select class="input">
+                    <option>All</option>
+                    <option>New</option>
+                    <option>Like New</option>
+                    <option>Good</option>
+                    <option>Used</option>
+                </select>
+            </div>
+            <button class="btn btn-primary">
+                Apply Filters
+            </button>
+        </aside>
+        <div class="product-area">
+            <div class="top-bar">
+                <p>
+                    Showing {{products.length}} Products
+                </p>
+                <select class="input sort">
+                    <option>Newest</option>
+                    <option>Price Low → High</option>
+                    <option>Price High → Low</option>
+                    <option>Highest Rated</option>
+                </select>
+            </div>
+            <div class="products-grid">
+                @for(product of products; track product.id){
+
+                    <app-product-card
+                        [product]="product">
+                    </app-product-card>
+                }
+            </div>
+        </div>
+    </div>
+</section>

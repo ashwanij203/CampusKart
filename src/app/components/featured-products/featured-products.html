@@ -1,12 +1,15 @@
-<section class="featured">
-    <h2>
-        Latest Products
-    </h2>
-    <div class="products">
-        @for(product of products; track product.id){
-            <app-product-card
-                [product]="product">
-            </app-product-card>
-        }
-    </div>
+<section class="section">
+<h2 class="section-title">
+Featured Products
+</h2>
+<p class="section-subtitle">
+Latest products from verified LPU students
+</p>
+<div class="products">
+@for(product of products;track product.id){
+<app-product-card
+[product]="product">
+</app-product-card>
+}
+</div>
 </section>
