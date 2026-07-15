@@ -1,28 +1,104 @@
-/* You can add global styles to this file, and also import other style files */
-
-@import 'tailwindcss';
-/* Google Font */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-/* Color Variables */
-:root {
-  --primary-color: #2563eb;
-  --secondary-color: #0f172a;
-  --background-color: #f8fafc;
-  --text-color: #334155;
-  --success-color: #22c55e;
-  --danger-color: #ef4444;
+/*  Google Font*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+/* 2. CSS Variables */
+:root{
+  --primary:#2563eb;
+  --primary-dark:#1d4ed8;
+  --secondary:#7c3aed;
+  --success:#22c55e;
+  --danger:#ef4444;
+  --bg:#f8fafc;
+  --card:#ffffff;
+  --text:#0f172a;
+  --text-light:#64748b;
+  --border:#e2e8f0;
+  --radius:18px;
+  --shadow:0 10px 30px rgba(15,23,42,.08);
 }
-
-/* Global Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* 3. Global Reset */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
 }
-
-body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  font-family: 'Poppins', sans-serif;
+html{
+    scroll-behavior:smooth;
+}
+body{
+    background:var(--bg);
+    color:var(--text);
+}
+/* 4. Reusable Buttons */
+.btn{
+    padding:14px 30px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.3s;
+}
+.btn-primary{
+    background:var(--primary);
+    color:white;
+}
+.btn-primary:hover{
+    background:var(--primary-dark);
+    transform:translateY(-3px);
+}
+.btn-secondary{
+    background:white;
+    color:var(--primary);
+    border:2px solid var(--primary);
+}
+.btn-secondary:hover{
+    background:var(--primary);
+    color:white;
+}
+.card{
+background:white;
+border-radius:18px;
+padding:25px;
+box-shadow:var(--shadow);
+transition:.3s;
+}
+.card:hover{
+transform:translateY(-8px);
+}
+.input{
+width:100%;
+padding:14px;
+border-radius:12px;
+border:1px solid var(--border);
+font-size:16px;
+}
+.input:focus{
+outline:none;
+border-color:var(--primary);
+}
+.section{
+max-width:1300px;
+margin:auto;
+padding:80px 20px;
+}
+.section-title{
+text-align:center;
+font-size:42px;
+font-weight:700;
+margin-bottom:20px;
+}
+.section-subtitle{
+text-align:center;
+color:var(--text-light);
+margin-bottom:60px;
+font-size:18px;
+}
+.badge{
+display:inline-block;
+padding:8px 18px;
+border-radius:30px;
+background:#dbeafe;
+color:var(--primary);
+font-size:14px;
+font-weight:600;
 }
