@@ -1,0 +1,123 @@
+<section class="section">
+  <h1 class="section-title">Sell Your Product</h1>
+
+  <p class="section-subtitle">Reach thousands of verified LPU students.</p>
+
+  <div class="sell-container">
+    <!-- LEFT PANEL -->
+
+    <div class="left-panel card">
+      <h2>Upload Product Images</h2>
+
+      <label class="upload-box">
+        <i class="bi bi-cloud-arrow-up"></i>
+
+        <h3>Click to Upload Images</h3>
+
+        <p>JPG • PNG • JPEG</p>
+
+        <input type="file" multiple accept="image/*" (change)="onImageSelected($event)" hidden />
+      </label>
+
+      <!-- Image Preview -->
+
+      @if (imagePreviews.length) {
+        <div class="preview-grid">
+          @for (image of imagePreviews; track image) {
+            <div class="preview-item">
+              <img [src]="image" />
+
+              <button type="button" (click)="removeImage($index)">✕</button>
+            </div>
+          }
+        </div>
+      }
+
+      <!-- AI Suggestion -->
+
+      <div class="ai-card">
+        <h3>🤖 AI Suggestions</h3>
+
+        <p>
+          Category :
+          <strong>Electronics</strong>
+        </p>
+
+        <p>
+          Suggested Price :
+          <strong>₹65,000</strong>
+        </p>
+
+        <p>
+          Image Quality :
+          <strong>Excellent</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+
+    <div class="right-panel card">
+      <form [formGroup]="productForm" (ngSubmit)="publishProduct()">
+        <input class="input" placeholder="Product Name" formControlName="title" />
+
+        <select class="input" formControlName="category">
+          <option value="">Select Category</option>
+
+          <option>Books</option>
+
+          <option>Electronics</option>
+
+          <option>Mobiles</option>
+
+          <option>Furniture</option>
+
+          <option>Bicycle</option>
+        </select>
+
+        <select class="input" formControlName="condition">
+          <option value="">Select Condition</option>
+
+          <option>New</option>
+
+          <option>Like New</option>
+
+          <option>Good</option>
+
+          <option>Used</option>
+        </select>
+
+        <input class="input" type="number" placeholder="Price" formControlName="price" />
+
+        <input class="input" placeholder="Location" formControlName="location" />
+
+        <textarea class="input" rows="6" placeholder="Description" formControlName="description">
+        </textarea>
+
+        <button class="btn btn-primary" type="submit">Publish Product</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Live Preview -->
+
+  <div class="preview card">
+    <h2>Live Preview</h2>
+
+    <img [src]="imagePreviews.length ? imagePreviews[0] : '/images/no-image.png'" />
+
+    <h3>
+      {{ productForm.value.title || 'Product Name' }}
+    </h3>
+
+    <h2>₹{{ productForm.value.price || '0' }}</h2>
+
+    <p>
+      {{ productForm.value.location || 'Location' }}
+    </p>
+
+    <span class="badge">
+      {{ productForm.value.condition || 'Condition' }}
+    </span>
+  </div>
+</section>

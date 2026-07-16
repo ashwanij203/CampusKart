@@ -9,7 +9,7 @@ import { Dashboard } from './pages/dashboard/dashboard';
 import { Profile } from './pages/profile/profile';
 import { Wishlist } from './pages/wishlist/wishlist';
 import { Chat } from './pages/chat/chat';
-
+import { SellProduct } from './pages/sell-product/sell-product';
 
 export const routes: Routes = [
     {
@@ -51,5 +51,13 @@ export const routes: Routes = [
     {
         path: 'chat',
         component: Chat,
-    }
+    },
+    {
+    path:'product-details',
+    component:ProductDetails,
+},
+{
+  path: 'sell-product',
+  component: SellProduct
+}
 ];
