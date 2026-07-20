@@ -1,0 +1,60 @@
+<section class="section">
+  <h1 class="section-title">My Wishlist</h1>
+  <p class="section-subtitle">Products you've saved for later.</p>
+
+  @if (isLoading) {
+    <div class="loading">
+      <i class="bi bi-heart-pulse spin"></i>
+      Loading wishlist...
+    </div>
+  }
+
+  @if (errorMessage) {
+    <div class="alert-error">{{ errorMessage }}</div>
+  }
+
+  @if (!isLoading && wishlistItems.length === 0 && !errorMessage) {
+    <div class="empty-state">
+      <i class="bi bi-heart"></i>
+      <h3>Your wishlist is empty</h3>
+      <p>Browse products and click ❤️ to save them here.</p>
+      <a routerLink="/products" class="btn btn-primary">Browse Products</a>
+    </div>
+  }
+
+  @if (wishlistItems.length > 0) {
+    <p class="count">{{ wishlistItems.length }} item(s) saved</p>
+    <div class="wishlist-grid">
+      @for (item of wishlistItems; track item._id) {
+        <div class="product-card card">
+          <div class="card-top">
+            <button class="remove-btn" (click)="removeItem(item.product?._id)" title="Remove from wishlist">
+              <i class="bi bi-heart-fill"></i>
+            </button>
+          </div>
+
+          <div class="card-image">
+            <img [src]="getProductImage(item.product)" [alt]="item.product?.title" />
+          </div>
+
+          <div class="card-body">
+            <h3>{{ item.product?.title }}</h3>
+            <p class="price">₹{{ item.product?.price }}</p>
+            <p class="meta">
+              <i class="bi bi-geo-alt"></i> {{ item.product?.location }}
+            </p>
+            <p class="meta">
+              <i class="bi bi-person"></i> {{ getSellerName(item.product?.seller) }}
+            </p>
+            <div class="badges">
+              <span class="badge">{{ item.product?.condition }}</span>
+            </div>
+            <a [routerLink]="['/product', item.product?._id]" class="btn btn-primary view-btn">
+              View Details
+            </a>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</section>

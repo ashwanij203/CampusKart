@@ -1,0 +1,110 @@
+<section class="section">
+
+  @if (isLoading) {
+    <div class="loading">
+      <i class="bi bi-arrow-repeat spin"></i>
+      Loading product...
+    </div>
+  }
+
+  @if (errorMessage) {
+    <div class="error-state">
+      <i class="bi bi-exclamation-triangle"></i>
+      <h3>{{ errorMessage }}</h3>
+      <a routerLink="/products" class="btn btn-primary">Back to Products</a>
+    </div>
+  }
+
+  @if (!isLoading && product) {
+    <div class="breadcrumb">
+      <a routerLink="/">Home</a> /
+      <a routerLink="/products">Products</a> /
+      {{ product.title }}
+    </div>
+
+    <div class="product-details">
+      <!-- GALLERY -->
+      <div class="gallery">
+        @if (selectedImage) {
+          <img class="main-image" [src]="selectedImage" [alt]="product.title" />
+        } @else {
+          <img class="main-image" src="/mackbook.jpg" [alt]="product.title" />
+        }
+
+        @if (product.images && product.images.length > 1) {
+          <div class="thumbnails">
+            @for (image of product.images; track image) {
+              <img
+                [src]="image"
+                [class.active]="selectedImage === image"
+                (click)="selectedImage = image"
+                [alt]="product.title" />
+            }
+          </div>
+        }
+      </div>
+
+      <!-- DETAILS -->
+      <div class="details card">
+        <div class="status-badge" [class.available]="product.status === 'Available'" [class.sold]="product.status === 'Sold'">
+          {{ product.status || 'Available' }}
+        </div>
+
+        <h1>{{ product.title }}</h1>
+        <h2 class="price">₹{{ product.price }}</h2>
+
+        <div class="info-row">
+          <i class="bi bi-geo-alt"></i>
+          <span>{{ product.location }}</span>
+        </div>
+
+        <div class="info-row">
+          <i class="bi bi-box-seam"></i>
+          <span>Condition: <strong>{{ product.condition }}</strong></span>
+        </div>
+
+        <div class="info-row">
+          <i class="bi bi-tag"></i>
+          <span>Category: <strong>{{ product.category }}</strong></span>
+        </div>
+
+        <div class="info-row">
+          <i class="bi bi-clock"></i>
+          <span>Listed {{ formatDate(product.createdAt) }}</span>
+        </div>
+
+        <!-- Seller Card -->
+        <div class="seller-card">
+          <div class="seller-avatar">
+            <img
+              [src]="'https://ui-avatars.com/api/?name=' + getSellerName() + '&background=2563eb&color=fff&size=48'"
+              [alt]="getSellerName()" />
+          </div>
+          <div class="seller-info">
+            <h4>{{ getSellerName() }}</h4>
+            <p>Verified Seller <span class="verified">✔</span></p>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary" (click)="chatWithSeller()">
+            <i class="bi bi-chat-dots"></i> Chat with Seller
+          </button>
+          <button
+            class="btn btn-secondary"
+            [class.wishlisted]="isWishlisted"
+            (click)="toggleWishlist()">
+            <i class="bi" [class.bi-heart]="!isWishlisted" [class.bi-heart-fill]="isWishlisted"></i>
+            {{ isWishlisted ? 'Wishlisted' : 'Add to Wishlist' }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="description card">
+      <h2>Description</h2>
+      <p>{{ product.description }}</p>
+    </div>
+  }
+</section>

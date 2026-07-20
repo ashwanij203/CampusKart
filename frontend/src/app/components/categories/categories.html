@@ -1,0 +1,32 @@
+<section class="section">
+    <h2 class="section-title">
+        Browse Categories
+    </h2>
+    <p class="section-subtitle">
+        Find products from different categories listed by verified LPU students.
+    </p>
+    <div class="category-grid">
+        @for(category of categories; track category.title){
+        <div class="category-card card">
+            <div class="icon">
+                <i class="bi" [class]="category.icon"></i>
+            </div>
+            <h3>
+                {{category.title}}
+            </h3>
+            <p class="description">
+                {{category.description}}
+            </p>
+            <div class="bottom">
+                <span>
+                    {{category.count}} Products
+                </span>
+                <button class="explore-btn">
+                    Explore
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        }
+    </div>
+</section>

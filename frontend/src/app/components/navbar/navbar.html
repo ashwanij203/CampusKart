@@ -1,0 +1,47 @@
+<nav class="navbar">
+  <!-- Logo -->
+  <a routerLink="/" class="logo">
+    <i class="bi bi-shop"></i>
+    <span>CampusKart</span>
+  </a>
+
+  <!-- Nav Links -->
+  <ul class="nav-links" [class.open]="menuOpen">
+    <li><a routerLink="/" (click)="menuOpen=false">Home</a></li>
+    <li><a routerLink="/products" (click)="menuOpen=false">Products</a></li>
+
+    @if (isLoggedIn) {
+      <li><a routerLink="/sell-product" (click)="menuOpen=false">Sell</a></li>
+      <li><a routerLink="/dashboard" (click)="menuOpen=false">Dashboard</a></li>
+      <li><a routerLink="/chat" (click)="menuOpen=false">Chat</a></li>
+    }
+  </ul>
+
+  <!-- Right Icons -->
+  <div class="nav-right">
+    @if (isLoggedIn) {
+      <!-- Wishlist -->
+      <a routerLink="/wishlist" class="nav-icon-btn" title="Wishlist">
+        <i class="bi bi-heart"></i>
+      </a>
+
+      <!-- Profile Avatar -->
+      <a routerLink="/profile" class="avatar-link" title="Profile">
+        <img [src]="getAvatar()" class="avatar" [alt]="currentUser?.name" />
+      </a>
+
+      <!-- Logout -->
+      <button class="nav-btn logout-btn" (click)="logout()">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </button>
+    } @else {
+      <a routerLink="/login" class="nav-btn">Login</a>
+      <a routerLink="/register" class="nav-btn register">Register</a>
+    }
+
+    <!-- Mobile hamburger -->
+    <button class="hamburger" (click)="toggleMenu()">
+      <i class="bi" [class.bi-list]="!menuOpen" [class.bi-x]="menuOpen"></i>
+    </button>
+  </div>
+</nav>

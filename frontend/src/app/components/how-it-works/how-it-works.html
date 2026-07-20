@@ -1,0 +1,18 @@
+<section class="how">
+    <h2>How CampusKart Works</h2>
+    <div class="steps">
+        @for(step of steps; track step.title){
+            <div class="step-card">
+                <div class="icon">
+                    {{step.icon}}
+                </div>
+                <h3>
+                    {{step.title}}
+                </h3>
+                <p>
+                    {{step.description}}
+                </p>
+            </div>
+        }
+    </div>
+</section>

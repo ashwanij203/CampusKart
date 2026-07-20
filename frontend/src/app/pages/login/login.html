@@ -1,0 +1,64 @@
+<section class="auth-container">
+    <div class="left-panel">
+        <div class="brand">
+            <i class="bi bi-shop"></i>
+            <h1>CampusKart</h1>
+        </div>
+        <p>
+            Buy and Sell Used Products
+            Within LPU Campus.
+        </p>
+    </div>
+    <div class="right-panel">
+        <div class="login-card">
+            <h2>Welcome Back 👋</h2>
+            <p>Login to your account</p>
+
+            @if (errorMessage) {
+                <div class="alert-error">
+                    {{ errorMessage }}
+                </div>
+            }
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <input
+                    class="input"
+                    type="email"
+                    placeholder="Email Address"
+                    formControlName="email" />
+                @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
+                    <small class="error">Please enter a valid email.</small>
+                }
+
+                <div class="password-box">
+                    <input
+                        [type]="hidePassword ? 'password' : 'text'"
+                        placeholder="Password"
+                        formControlName="password" />
+                    <button type="button" class="eye-btn" (click)="togglePassword()">
+                        <i class="bi" [class.bi-eye]="hidePassword" [class.bi-eye-slash]="!hidePassword"></i>
+                    </button>
+                </div>
+                @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
+                    <small class="error">Password must be at least 6 characters.</small>
+                }
+
+                <button
+                    type="submit"
+                    class="login-btn"
+                    [disabled]="loginForm.invalid || isLoading">
+                    @if (isLoading) {
+                        <span>Logging in...</span>
+                    } @else {
+                        <span>Login</span>
+                    }
+                </button>
+            </form>
+
+            <p class="switch-link">
+                Don't have an account?
+                <a routerLink="/register">Register</a>
+            </p>
+        </div>
+    </div>
+</section>

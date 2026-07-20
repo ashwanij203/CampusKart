@@ -1,0 +1,121 @@
+<section class="section">
+  <h1 class="section-title">Browse Products</h1>
+  <p class="section-subtitle">Find the best deals from verified LPU students.</p>
+
+  <div class="marketplace">
+    <!-- SIDEBAR FILTERS -->
+    <aside class="sidebar card">
+      <h3>Filters</h3>
+
+      <div class="filter-group">
+        <label>Search</label>
+        <input class="input" type="text" placeholder="Search products..." [(ngModel)]="searchTerm" (keyup.enter)="applyFilters()" />
+      </div>
+
+      <div class="filter-group">
+        <label>Category</label>
+        <select class="input" [(ngModel)]="selectedCategory">
+          @for (cat of categories; track cat) {
+            <option [value]="cat">{{ cat }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Condition</label>
+        <select class="input" [(ngModel)]="selectedCondition">
+          @for (cond of conditions; track cond) {
+            <option [value]="cond">{{ cond }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Price Range</label>
+        <select class="input" [(ngModel)]="selectedPriceRange">
+          <option value="">All Prices</option>
+          <option value="0-1000">₹0 – ₹1,000</option>
+          <option value="1000-5000">₹1,000 – ₹5,000</option>
+          <option value="5000-10000">₹5,000 – ₹10,000</option>
+          <option value="10000+">₹10,000+</option>
+        </select>
+      </div>
+
+      <div class="filter-actions">
+        <button class="btn btn-primary" (click)="applyFilters()">Apply Filters</button>
+        <button class="btn btn-secondary" (click)="resetFilters()">Reset</button>
+      </div>
+    </aside>
+
+    <!-- PRODUCT AREA -->
+    <div class="product-area">
+      <div class="top-bar">
+        <p>
+          @if (isLoading) {
+            Loading...
+          } @else {
+            Showing {{ products.length }} product(s)
+          }
+        </p>
+        <select class="input sort" [(ngModel)]="selectedSort" (ngModelChange)="applyFilters()">
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+          <option value="price_asc">Price: Low → High</option>
+          <option value="price_desc">Price: High → Low</option>
+        </select>
+      </div>
+
+      @if (errorMessage) {
+        <div class="alert-error">{{ errorMessage }}</div>
+      }
+
+      @if (isLoading) {
+        <div class="loading-state">
+          <i class="bi bi-arrow-repeat spin"></i>
+          <p>Loading products...</p>
+        </div>
+      }
+
+      @if (!isLoading && products.length === 0 && !errorMessage) {
+        <div class="empty-state">
+          <i class="bi bi-search"></i>
+          <h3>No products found</h3>
+          <p>Try adjusting your filters or search term.</p>
+          <button class="btn btn-primary" (click)="resetFilters()">Clear Filters</button>
+        </div>
+      }
+
+      <div class="products-grid">
+        @for (product of products; track product._id) {
+          <div class="product-card card">
+            <div class="card-top">
+              <button
+                class="wishlist-btn"
+                [class.active]="isWishlisted(product)"
+                (click)="toggleWishlist(product)"
+                title="Add to wishlist">
+                <i class="bi" [class.bi-heart-fill]="isWishlisted(product)" [class.bi-heart]="!isWishlisted(product)"></i>
+              </button>
+            </div>
+
+            <div class="card-image">
+              <img [src]="getProductImage(product)" [alt]="product.title" />
+            </div>
+
+            <div class="card-body">
+              <h3>{{ product.title }}</h3>
+              <p class="price">₹{{ product.price }}</p>
+              <p class="meta"><i class="bi bi-geo-alt"></i> {{ product.location }}</p>
+              <p class="meta"><i class="bi bi-person"></i> {{ getSellerName(product.seller) }}</p>
+              <span class="badge">{{ product.condition }}</span>
+
+              <a [routerLink]="['/product', product._id]" class="btn btn-primary view-btn">
+                View Details
+              </a>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,92 @@
+<section class="auth-container">
+    <div class="left-panel">
+        <div class="brand">
+            <i class="bi bi-shop"></i>
+            <h1>CampusKart</h1>
+        </div>
+        <p>Join thousands of LPU students buying and selling on campus.</p>
+    </div>
+
+    <div class="right-panel">
+        <div class="register-card">
+            <h2>Create Account 🎓</h2>
+            <p>Fill in your details to get started</p>
+
+            @if (errorMessage) {
+                <div class="alert-error">{{ errorMessage }}</div>
+            }
+
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+                <!-- Name -->
+                <div class="field">
+                    <input class="input" type="text" placeholder="Full Name *" formControlName="name" />
+                    @if (registerForm.get('name')?.touched && registerForm.get('name')?.invalid) {
+                        <small class="error">Full name is required (min 2 chars).</small>
+                    }
+                </div>
+
+                <!-- Email -->
+                <div class="field">
+                    <input class="input" type="email" placeholder="Email Address *" formControlName="email" />
+                    @if (registerForm.get('email')?.touched && registerForm.get('email')?.invalid) {
+                        <small class="error">Please enter a valid email.</small>
+                    }
+                </div>
+
+                <!-- Phone -->
+                <div class="field">
+                    <input class="input" type="tel" placeholder="Phone Number (optional)" formControlName="phone" />
+                </div>
+
+                <!-- Hostel + Room -->
+                <div class="row">
+                    <div class="field">
+                        <input class="input" type="text" placeholder="Hostel (e.g. BH-2)" formControlName="hostel" />
+                    </div>
+                    <div class="field">
+                        <input class="input" type="text" placeholder="Room No." formControlName="roomNumber" />
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="field password-box">
+                    <input [type]="hidePassword ? 'password' : 'text'" placeholder="Password *" formControlName="password" />
+                    <button type="button" class="eye-btn" (click)="hidePassword = !hidePassword">
+                        <i class="bi" [class.bi-eye]="hidePassword" [class.bi-eye-slash]="!hidePassword"></i>
+                    </button>
+                    @if (registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
+                        <small class="error">Password must be at least 6 characters.</small>
+                    }
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="field password-box">
+                    <input [type]="hideConfirm ? 'password' : 'text'" placeholder="Confirm Password *" formControlName="confirmPassword" />
+                    <button type="button" class="eye-btn" (click)="hideConfirm = !hideConfirm">
+                        <i class="bi" [class.bi-eye]="hideConfirm" [class.bi-eye-slash]="!hideConfirm"></i>
+                    </button>
+                    @if (registerForm.get('confirmPassword')?.touched && registerForm.hasError('passwordMismatch')) {
+                        <small class="error">Passwords do not match.</small>
+                    }
+                </div>
+
+                <button
+                    type="submit"
+                    class="register-btn"
+                    [disabled]="registerForm.invalid || isLoading">
+                    @if (isLoading) {
+                        <span>Creating Account...</span>
+                    } @else {
+                        <span>Create Account</span>
+                    }
+                </button>
+            </form>
+
+            <p class="switch-link">
+                Already have an account?
+                <a routerLink="/login">Login</a>
+            </p>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,33 @@
+<div class="product-card card">
+    <div class="top">
+        <button class="wishlist">
+            <i class="bi bi-heart"></i>
+        </button>
+        @if (product.featured) {
+        <span class="featured"> Featured </span>
+        }
+    </div>
+    <div class="image">
+        <img [src]="product.image" [alt]="product.title" />
+    </div>
+    <div class="content">
+        <h3>
+            {{ product.title }}
+        </h3>
+        <div class="rating">
+            ★★★★★
+            <span> ({{ product.rating }}) </span>
+        </div>
+        <h2>₹{{ product.price }}</h2>
+        <p>
+            <i class="bi bi-geo-alt"></i>
+            {{ product.location }}
+        </p>
+        <p>👤 {{ product.seller }}</p>
+        <p>⏱ {{ product.posted }}</p>
+        <span class="condition">
+            {{ product.condition }}
+        </span>
+        <a routerLink="/product-details" class="btn btn-primary"> View Details </a>
+    </div>
+</div>

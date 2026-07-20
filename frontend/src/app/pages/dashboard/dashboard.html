@@ -1,0 +1,84 @@
+<section class="section">
+  <h1 class="section-title">Dashboard</h1>
+  <p class="section-subtitle">
+    Welcome back 👋 {{ user?.name || 'User' }}! Manage your CampusKart account.
+  </p>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions">
+    <a routerLink="/sell-product" class="action-btn primary">
+      <i class="bi bi-plus-circle"></i> Sell a Product
+    </a>
+    <a routerLink="/products" class="action-btn secondary">
+      <i class="bi bi-grid"></i> Browse Products
+    </a>
+    <a routerLink="/chat" class="action-btn secondary">
+      <i class="bi bi-chat-dots"></i> My Chats
+    </a>
+    <a routerLink="/wishlist" class="action-btn secondary">
+      <i class="bi bi-heart"></i> Wishlist
+    </a>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="dashboard-grid">
+    @for (card of cards; track card.title) {
+      <a [routerLink]="card.link" class="dashboard-card card">
+        <div class="card-icon">
+          <i class="bi" [class]="card.icon"></i>
+        </div>
+        <h2>{{ card.value }}</h2>
+        <p>{{ card.title }}</p>
+      </a>
+    }
+  </div>
+
+  <!-- Recent Listings -->
+  <div class="recent-section">
+    <div class="recent-header">
+      <h2>My Recent Listings</h2>
+      <a routerLink="/sell-product" class="btn btn-primary small-btn">
+        <i class="bi bi-plus"></i> Add New
+      </a>
+    </div>
+
+    @if (isLoading) {
+      <div class="loading">
+        <i class="bi bi-arrow-repeat spin"></i> Loading...
+      </div>
+    }
+
+    @if (!isLoading && myProducts.length === 0) {
+      <div class="empty-state">
+        <i class="bi bi-box"></i>
+        <p>You haven't listed any products yet.</p>
+        <a routerLink="/sell-product" class="btn btn-primary">Start Selling</a>
+      </div>
+    }
+
+    <div class="recent-products">
+      @for (product of myProducts.slice(0, 4); track product._id) {
+        <div class="product-row card">
+          <img [src]="getProductImage(product)" [alt]="product.title" />
+          <div class="product-info">
+            <h4>{{ product.title }}</h4>
+            <p class="price">₹{{ product.price }}</p>
+            <p class="meta"><i class="bi bi-geo-alt"></i> {{ product.location }}</p>
+          </div>
+          <div class="product-meta">
+            <span class="badge">{{ product.condition }}</span>
+            <span
+              class="status"
+              [class.available]="product.status === 'Available'"
+              [class.sold]="product.status === 'Sold'">
+              {{ product.status || 'Available' }}
+            </span>
+          </div>
+          <a [routerLink]="['/product', product._id]" class="btn btn-secondary view-btn">
+            View
+          </a>
+        </div>
+      }
+    </div>
+  </div>
+</section>

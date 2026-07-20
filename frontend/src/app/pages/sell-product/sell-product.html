@@ -1,0 +1,129 @@
+<section class="section">
+  <h1 class="section-title">Sell Your Product</h1>
+  <p class="section-subtitle">Reach thousands of verified LPU students.</p>
+
+  @if (successMessage) {
+    <div class="alert-success">✅ {{ successMessage }}</div>
+  }
+  @if (errorMessage) {
+    <div class="alert-error">❌ {{ errorMessage }}</div>
+  }
+
+  <div class="sell-container">
+    <!-- LEFT PANEL: Image Upload -->
+    <div class="left-panel card">
+      <h2>Upload Product Images</h2>
+
+      <label class="upload-box">
+        <i class="bi bi-cloud-arrow-up"></i>
+        <h3>Click to Upload Images</h3>
+        <p>JPG • PNG • JPEG (max 5 images)</p>
+        <input type="file" multiple accept="image/*" (change)="onImageSelected($event)" hidden />
+      </label>
+
+      @if (imagePreviews.length) {
+        <div class="preview-grid">
+          @for (image of imagePreviews; track image) {
+            <div class="preview-item">
+              <img [src]="image" alt="Preview" />
+              <button type="button" (click)="removeImage($index)">✕</button>
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Live Preview Card -->
+      <div class="preview-card">
+        <h3>Live Preview</h3>
+        <img [src]="imagePreviews.length ? imagePreviews[0] : ''" class="preview-img" [class.no-img]="!imagePreviews.length" />
+        <h4>{{ productForm.value.title || 'Product Name' }}</h4>
+        <p class="price">₹{{ productForm.value.price || '0' }}</p>
+        <p class="loc"><i class="bi bi-geo-alt"></i> {{ productForm.value.location || 'Location' }}</p>
+        <span class="badge">{{ productForm.value.condition || 'Condition' }}</span>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL: Form -->
+    <div class="right-panel card">
+      <h2>Product Details</h2>
+
+      <form [formGroup]="productForm" (ngSubmit)="publishProduct()">
+
+        <div class="field">
+          <label>Product Name *</label>
+          <input class="input" type="text" placeholder="e.g. MacBook Air M2" formControlName="title" />
+          @if (productForm.get('title')?.touched && productForm.get('title')?.invalid) {
+            <small class="error">Product name is required.</small>
+          }
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>Category *</label>
+            <select class="input" formControlName="category">
+              <option value="">Select Category</option>
+              <option>Books</option>
+              <option>Electronics</option>
+              <option>Mobiles</option>
+              <option>Furniture</option>
+              <option>Bicycle</option>
+              <option>Clothing</option>
+              <option>Other</option>
+            </select>
+            @if (productForm.get('category')?.touched && productForm.get('category')?.invalid) {
+              <small class="error">Category is required.</small>
+            }
+          </div>
+
+          <div class="field">
+            <label>Condition *</label>
+            <select class="input" formControlName="condition">
+              <option value="">Select Condition</option>
+              <option>New</option>
+              <option>Like New</option>
+              <option>Good</option>
+              <option>Used</option>
+            </select>
+            @if (productForm.get('condition')?.touched && productForm.get('condition')?.invalid) {
+              <small class="error">Condition is required.</small>
+            }
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>Price (₹) *</label>
+            <input class="input" type="number" placeholder="e.g. 5000" formControlName="price" />
+            @if (productForm.get('price')?.touched && productForm.get('price')?.invalid) {
+              <small class="error">Enter a valid price.</small>
+            }
+          </div>
+
+          <div class="field">
+            <label>Location *</label>
+            <input class="input" type="text" placeholder="e.g. BH-2 Hostel" formControlName="location" />
+            @if (productForm.get('location')?.touched && productForm.get('location')?.invalid) {
+              <small class="error">Location is required.</small>
+            }
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Description *</label>
+          <textarea class="input" rows="5" placeholder="Describe your product in detail..." formControlName="description"></textarea>
+          @if (productForm.get('description')?.touched && productForm.get('description')?.invalid) {
+            <small class="error">Description must be at least 10 characters.</small>
+          }
+        </div>
+
+        <button class="btn btn-primary publish-btn" type="submit" [disabled]="isLoading">
+          @if (isLoading) {
+            <span><i class="bi bi-hourglass-split"></i> Publishing...</span>
+          } @else {
+            <span><i class="bi bi-rocket-takeoff"></i> Publish Product</span>
+          }
+        </button>
+      </form>
+    </div>
+  </div>
+</section>

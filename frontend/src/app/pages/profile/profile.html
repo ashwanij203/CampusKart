@@ -1,0 +1,149 @@
+<section class="section">
+
+  @if (isLoading) {
+    <div class="loading">
+      <i class="bi bi-arrow-repeat spin"></i>
+      Loading profile...
+    </div>
+  }
+
+  @if (!isLoading && user) {
+    <div class="profile-layout">
+
+      <!-- LEFT: Profile Card -->
+      <div class="profile-card card">
+
+        <!-- Avatar -->
+        <div class="avatar-wrapper">
+          <img
+            [src]="imagePreview || user.profileImage || 'https://ui-avatars.com/api/?name=' + user.name + '&background=2563eb&color=fff&size=128'"
+            class="avatar"
+            [alt]="user.name" />
+
+          @if (isEditing) {
+            <label class="avatar-edit">
+              <i class="bi bi-camera"></i>
+              <input type="file" accept="image/*" (change)="onImageSelected($event)" hidden />
+            </label>
+          }
+        </div>
+
+        <h2>{{ user.name }}</h2>
+        <p class="email"><i class="bi bi-envelope"></i> {{ user.email }}</p>
+
+        @if (user.hostel) {
+          <p class="meta"><i class="bi bi-building"></i> {{ user.hostel }}
+            @if (user.roomNumber) { · Room {{ user.roomNumber }} }
+          </p>
+        }
+
+        @if (user.phone) {
+          <p class="meta"><i class="bi bi-telephone"></i> {{ user.phone }}</p>
+        }
+
+        <div class="stats">
+          <div class="stat">
+            <span class="val">{{ myProducts.length }}</span>
+            <span class="lbl">Listings</span>
+          </div>
+          <div class="stat">
+            <span class="val">0</span>
+            <span class="lbl">Sold</span>
+          </div>
+        </div>
+
+        @if (!isEditing) {
+          <button class="btn btn-primary edit-btn" (click)="isEditing = true">
+            <i class="bi bi-pencil"></i> Edit Profile
+          </button>
+        }
+      </div>
+
+      <!-- RIGHT -->
+      <div class="right-col">
+
+        <!-- Edit Form -->
+        @if (isEditing) {
+          <div class="edit-card card">
+            <h3>Edit Profile</h3>
+
+            @if (errorMessage) {
+              <div class="alert-error">{{ errorMessage }}</div>
+            }
+            @if (successMessage) {
+              <div class="alert-success">{{ successMessage }}</div>
+            }
+
+            <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+              <div class="field">
+                <label>Full Name *</label>
+                <input class="input" type="text" placeholder="Full Name" formControlName="name" />
+                @if (profileForm.get('name')?.touched && profileForm.get('name')?.invalid) {
+                  <small class="error">Name is required.</small>
+                }
+              </div>
+
+              <div class="row">
+                <div class="field">
+                  <label>Hostel</label>
+                  <input class="input" type="text" placeholder="e.g. BH-2" formControlName="hostel" />
+                </div>
+                <div class="field">
+                  <label>Room Number</label>
+                  <input class="input" type="text" placeholder="e.g. 412" formControlName="roomNumber" />
+                </div>
+              </div>
+
+              <div class="field">
+                <label>Phone</label>
+                <input class="input" type="tel" placeholder="Phone Number" formControlName="phone" />
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary" [disabled]="isSaving">
+                  @if (isSaving) { Saving... } @else { Save Changes }
+                </button>
+                <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+              </div>
+            </form>
+          </div>
+        }
+
+        @if (successMessage && !isEditing) {
+          <div class="alert-success">✅ {{ successMessage }}</div>
+        }
+
+        <!-- My Products -->
+        <div class="my-products-section">
+          <h3>My Listings ({{ myProducts.length }})</h3>
+
+          @if (myProducts.length === 0) {
+            <div class="empty-state">
+              <i class="bi bi-box"></i>
+              <p>No products listed yet.</p>
+              <a routerLink="/sell-product" class="btn btn-primary">Sell a Product</a>
+            </div>
+          }
+
+          <div class="products-grid">
+            @for (product of myProducts; track product._id) {
+              <div class="product-item card">
+                <img [src]="getProductImage(product)" [alt]="product.title" />
+                <div class="product-info">
+                  <h4>{{ product.title }}</h4>
+                  <p class="price">₹{{ product.price }}</p>
+                  <span class="badge">{{ product.condition }}</span>
+                  <span class="status" [class.available]="product.status === 'Available'" [class.sold]="product.status === 'Sold'">
+                    {{ product.status }}
+                  </span>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+      </div>
+    </div>
+  }
+
+</section>

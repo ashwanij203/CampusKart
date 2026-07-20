@@ -1,0 +1,23 @@
+<section class="section">
+    <h2 class="section-title">
+        Trusted by Thousands of LPU Students
+    </h2>
+    <p class="section-subtitle">
+        CampusKart makes buying and selling easier, safer and faster.
+    </p>
+    <div class="stats-grid">
+        @for(stat of stats; track stat.title){
+            <div class="stat-card card">
+                <div class="stat-icon">
+                    <i class="bi" [class]="stat.icon"></i>
+                </div>
+                <h2>
+                    {{stat.value}}
+                </h2>
+                <p>
+                    {{stat.title}}
+                </p>
+            </div>
+        }
+    </div>
+</section>

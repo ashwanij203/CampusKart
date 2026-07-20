@@ -1,0 +1,96 @@
+<section class="section chat-section">
+  <h1 class="section-title">Messages</h1>
+  <p class="section-subtitle">Chat with sellers and buyers</p>
+
+  <div class="chat-container">
+    <!-- LEFT: Conversations List -->
+    <div class="conversations-panel">
+      <h3>Conversations</h3>
+
+      @if (isLoadingConversations) {
+        <div class="loading">
+          <i class="bi bi-arrow-repeat spin"></i> Loading...
+        </div>
+      }
+
+      @if (!isLoadingConversations && conversations.length === 0) {
+        <div class="empty">
+          <i class="bi bi-chat-dots"></i>
+          <p>No conversations yet</p>
+        </div>
+      }
+
+      @for (conv of conversations; track conv._id) {
+        <div
+          class="conv-item"
+          [class.active]="selectedConversation?._id === conv._id"
+          (click)="selectConversation(conv)">
+          <img [src]="getAvatar(getOtherParticipant(conv))" class="avatar" />
+          <div class="conv-info">
+            <h4>{{ getOtherParticipant(conv).name }}</h4>
+            <p class="product-name">{{ conv.product?.title }}</p>
+            <p class="last-msg">{{ conv.lastMessage || 'No messages yet' }}</p>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- RIGHT: Messages -->
+    <div class="messages-panel">
+      @if (!selectedConversation) {
+        <div class="no-chat-selected">
+          <i class="bi bi-chat-text"></i>
+          <p>Select a conversation to start chatting</p>
+        </div>
+      }
+
+      @if (selectedConversation) {
+        <!-- Header -->
+        <div class="chat-header">
+          <img [src]="getAvatar(getOtherParticipant(selectedConversation))" class="avatar" />
+          <div class="header-info">
+            <h4>{{ getOtherParticipant(selectedConversation).name }}</h4>
+            <p>{{ selectedConversation.product?.title }} · ₹{{ selectedConversation.product?.price }}</p>
+          </div>
+        </div>
+
+        <!-- Messages -->
+        <div class="messages-area">
+          @if (isLoadingMessages) {
+            <div class="loading">
+              <i class="bi bi-arrow-repeat spin"></i>
+            </div>
+          }
+
+          @for (msg of messages; track msg._id) {
+            <div class="message" [class.mine]="isMyMessage(msg)" [class.theirs]="!isMyMessage(msg)">
+              <div class="msg-bubble">
+                <p>{{ msg.text }}</p>
+                <span class="time">{{ formatTime(msg.createdAt!) }}</span>
+              </div>
+            </div>
+          }
+
+          <div #messagesEnd></div>
+        </div>
+
+        <!-- Input -->
+        <div class="chat-input">
+          <input
+            class="input"
+            type="text"
+            placeholder="Type a message..."
+            [(ngModel)]="newMessage"
+            (keydown)="onKeyDown($event)"
+            [disabled]="isSending" />
+          <button
+            class="send-btn"
+            (click)="sendMessage()"
+            [disabled]="!newMessage.trim() || isSending">
+            <i class="bi bi-send-fill"></i>
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</section>
