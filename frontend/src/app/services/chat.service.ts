@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ChatService {
-  private apiUrl = 'http://localhost:5000/api/chat';
+  private apiUrl = '/api/chat';
 
   constructor(private http: HttpClient) {}
 
@@ -30,3 +30,4 @@ export class ChatService {
     return this.http.post(`${this.apiUrl}/conversations/${conversationId}/messages`, { text });
   }
 }
+

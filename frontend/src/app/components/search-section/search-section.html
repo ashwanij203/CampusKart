@@ -1,36 +1,21 @@
-<section class="section">
-    <div class="search-card">
-        <h2 class="section-title">
-            Find Your Product
-        </h2>
-        <p class="section-subtitle">
-            Search products listed by verified LPU students
-        </p>
-        <div class="search-grid">
-            <div class="field">
-                <i class="bi bi-search"></i>
-                <input
-                    class="input"
-                    type="text"
-                    placeholder="Search products...">
-            </div>
-            <select class="input">
-                @for(category of categories; track category){
-                    <option>
-                        {{category}}
-                    </option>
-                }
-            </select>
-            <select class="input">
-                <option>Any Price</option>
-                <option>₹0 - ₹1000</option>
-                <option>₹1000 - ₹5000</option>
-                <option>₹5000+</option>
-            </select>
-            <button class="btn btn-primary">
-                <i class="bi bi-search"></i>
-                Search
-            </button>
-        </div>
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-search-row">
+      <div class="cta-search-box">
+        <i class="bi bi-search"></i>
+        <input
+          class="cta-input"
+          type="text"
+          placeholder="Search books, laptops, cycles…">
+        <select class="cta-select">
+          @for(category of categories; track category){
+            <option>{{category}}</option>
+          }
+        </select>
+        <button class="cta-btn">
+          Search
+        </button>
+      </div>
     </div>
+  </div>
 </section>

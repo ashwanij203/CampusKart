@@ -1,18 +1,19 @@
-<section class="why">
-    <h2>Why Choose CampusKart?</h2>
-    <div class="feature-grid">
-        @for(feature of features; track feature.title){
-            <div class="feature-card">
-                <div class="icon">
-                    {{feature.icon}}
-                </div>
-                <h3>
-                    {{feature.title}}
-                </h3>
-                <p>
-                    {{feature.description}}
-                </p>
-            </div>
-        }
-    </div>
+<section class="why-section">
+  <p class="section-eyebrow">Our Advantages</p>
+  <h2 class="section-heading">Why Choose CampusKart?</h2>
+  <p class="section-subheading">
+    Built exclusively for LPU students — safe, smart, and super fast.
+  </p>
+
+  <div class="why-grid">
+    @for(feature of features; track feature.title){
+      <div class="feature-card" [style]="'--feat-color:' + feature.color + '; --feat-bg:' + feature.bg">
+        <div class="feat-icon">{{ feature.icon }}</div>
+        <div class="feat-body">
+          <h3 class="feat-title">{{ feature.title }}</h3>
+          <p class="feat-desc">{{ feature.description }}</p>
+        </div>
+      </div>
+    }
+  </div>
 </section>

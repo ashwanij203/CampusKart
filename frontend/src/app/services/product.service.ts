@@ -16,7 +16,7 @@ export interface ProductFilters {
   providedIn: 'root',
 })
 export class ProductService {
-  private apiUrl = 'http://localhost:5000/api/products';
+  private apiUrl = '/api/products';
 
   constructor(private http: HttpClient) {}
 
@@ -59,4 +59,10 @@ export class ProductService {
   getMyProducts(): Observable<any> {
     return this.http.get(`${this.apiUrl}/my-products`);
   }
+
+  // ===== CATEGORY COUNTS =====
+  getCategoryCounts(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/category-counts`);
+  }
 }
+

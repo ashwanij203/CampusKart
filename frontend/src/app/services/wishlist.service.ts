@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class WishlistService {
-  private apiUrl = 'http://localhost:5000/api/wishlist';
+  private apiUrl = '/api/wishlist';
 
   constructor(private http: HttpClient) {}
 
@@ -25,3 +25,4 @@ export class WishlistService {
     return this.http.delete(`${this.apiUrl}/${productId}`);
   }
 }
+

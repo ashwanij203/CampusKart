@@ -7,7 +7,7 @@ import { User } from '../interfaces/product';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5000/api/auth';
+  private apiUrl = '/api/auth';
 
   private currentUserSubject = new BehaviorSubject<User | null>(this.getUserFromStorage());
   public currentUser$ = this.currentUserSubject.asObservable();
@@ -88,3 +88,4 @@ export class AuthService {
     return user ? JSON.parse(user) : null;
   }
 }
+

@@ -34,12 +34,52 @@
 
       <!-- Live Preview Card -->
       <div class="preview-card">
-        <h3>Live Preview</h3>
-        <img [src]="imagePreviews.length ? imagePreviews[0] : ''" class="preview-img" [class.no-img]="!imagePreviews.length" />
-        <h4>{{ productForm.value.title || 'Product Name' }}</h4>
-        <p class="price">₹{{ productForm.value.price || '0' }}</p>
-        <p class="loc"><i class="bi bi-geo-alt"></i> {{ productForm.value.location || 'Location' }}</p>
-        <span class="badge">{{ productForm.value.condition || 'Condition' }}</span>
+        <div class="preview-label">
+          <i class="bi bi-eye"></i> LIVE PREVIEW
+        </div>
+        <div class="prev-product-card">
+          <!-- Condition badge -->
+          @if (productForm.value.condition) {
+            <div class="prev-badge-row">
+              <span class="prev-condition-badge">{{ productForm.value.condition }}</span>
+              @if (productForm.value.category) {
+                <span class="prev-category-badge">{{ productForm.value.category }}</span>
+              }
+            </div>
+          }
+
+          <!-- Image -->
+          <div class="prev-image-wrap">
+            @if (imagePreviews.length) {
+              <img [src]="imagePreviews[0]" alt="Product preview" class="prev-img" />
+            } @else {
+              <div class="prev-no-img">
+                <i class="bi bi-image"></i>
+                <span>Upload an image to preview</span>
+              </div>
+            }
+          </div>
+
+          <!-- Details -->
+          <div class="prev-body">
+            <h4 class="prev-title">{{ productForm.value.title || 'Product Name' }}</h4>
+            <p class="prev-price">₹{{ productForm.value.price || '0' }}</p>
+            <div class="prev-meta-row">
+              <span class="prev-meta">
+                <i class="bi bi-geo-alt"></i>
+                {{ productForm.value.location || 'Location' }}
+              </span>
+              <span class="prev-meta">
+                <i class="bi bi-person"></i>
+                You
+              </span>
+            </div>
+            <div class="prev-footer">
+              <span class="prev-time"><i class="bi bi-clock"></i> Just now</span>
+              <button class="prev-view-btn" type="button">View</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

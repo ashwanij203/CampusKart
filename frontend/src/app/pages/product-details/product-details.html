@@ -1,5 +1,56 @@
 <section class="section">
 
+  <!-- TOAST NOTIFICATION -->
+  @if (toastVisible) {
+    <div class="toast" [class.toast-success]="toastType === 'success'"
+         [class.toast-error]="toastType === 'error'"
+         [class.toast-info]="toastType === 'info'">
+      <i class="bi"
+         [class.bi-check-circle-fill]="toastType === 'success'"
+         [class.bi-x-circle-fill]="toastType === 'error'"
+         [class.bi-info-circle-fill]="toastType === 'info'"></i>
+      {{ toastMessage }}
+    </div>
+  }
+
+  <!-- CONTACT PANEL OVERLAY -->
+  @if (showContactPanel) {
+    <div class="contact-overlay" (click)="closeContactPanel()">
+      <div class="contact-panel card" (click)="$event.stopPropagation()">
+        <button class="close-btn" (click)="closeContactPanel()">
+          <i class="bi bi-x-lg"></i>
+        </button>
+        <div class="contact-header">
+          <img
+            [src]="'https://ui-avatars.com/api/?name=' + getSellerName() + '&background=2563eb&color=fff&size=64'"
+            [alt]="getSellerName()" class="contact-avatar" />
+          <div>
+            <h3>{{ getSellerName() }}</h3>
+            <p class="verified-tag"><i class="bi bi-patch-check-fill"></i> Verified Seller</p>
+          </div>
+        </div>
+        <div class="contact-product">
+          <i class="bi bi-bag"></i>
+          <span>Enquiring about: <strong>{{ product?.title }}</strong></span>
+        </div>
+        @if (getSellerPhone()) {
+          <a class="contact-call-btn" [href]="'tel:' + getSellerPhone()">
+            <i class="bi bi-telephone-fill"></i> Call {{ getSellerPhone() }}
+          </a>
+        }
+        <a class="contact-whatsapp-btn"
+           [href]="'https://wa.me/91' + getSellerPhone() + '?text=Hi%20' + getSellerName() + '%2C%20I%20saw%20your%20listing%20for%20' + product?.title + '%20on%20CampusKart.%20Is%20it%20still%20available%3F'"
+           target="_blank">
+          <i class="bi bi-whatsapp"></i> WhatsApp {{ getSellerName() }}
+        </a>
+        <p class="contact-note">
+          <i class="bi bi-info-circle"></i>
+          Server chat is currently unavailable. Contact seller directly.
+        </p>
+      </div>
+    </div>
+  }
+
   @if (isLoading) {
     <div class="loading">
       <i class="bi bi-arrow-repeat spin"></i>
@@ -51,7 +102,7 @@
         </div>
 
         <h1>{{ product.title }}</h1>
-        <h2 class="price">₹{{ product.price }}</h2>
+        <h2 class="price">₹{{ product.price | number }}</h2>
 
         <div class="info-row">
           <i class="bi bi-geo-alt"></i>
@@ -107,4 +158,5 @@
       <p>{{ product.description }}</p>
     </div>
   }
+
 </section>

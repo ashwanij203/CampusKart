@@ -1,40 +1,71 @@
-<section class="hero section">
-    <div class="hero-content">
-        <span class="badge">
-            🚀 AI Powered Marketplace
-        </span>
-        <h1>
-            Buy & Sell Used Products
-            <span>Inside LPU Campus</span>
-        </h1>
-        <p>
-            Buy books, laptops, bicycles, furniture, electronics
-            and more from verified LPU students.
-        </p>
-        <div class="hero-buttons">
-            <button class="btn btn-primary">
-                Explore Products
-            </button>
-            <button class="btn btn-secondary">
-                Sell Product
-            </button>
-        </div>
-        <div class="hero-stats">
-            <div>
-                <h2>5000+</h2>
-                <p>Products</p>
-            </div>
-            <div>
-                <h2>30000+</h2>
-                <p>Students</p>
-            </div>
-            <div>
-                <h2>1000+</h2>
-                <p>Deals</p>
-            </div>
-        </div>
+<section class="hero-section">
+
+  <!-- Left: Content -->
+  <div class="hero-content">
+
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      <span>LPU's #1 Student Marketplace</span>
     </div>
-    <div class="hero-image">
-        <img src="/images/hero.png" alt="CampusKart">
+
+    <h1 class="hero-title">
+      Buy &amp; Sell<br>
+      <span class="highlight">Used Products</span><br>
+      at LPU Campus
+    </h1>
+
+    <p class="hero-desc">
+      The easiest way for LPU students to buy &amp; sell books, laptops,
+      bicycles, furniture and electronics — verified &amp; safe.
+    </p>
+
+    <div class="hero-buttons">
+      <a routerLink="/products" class="hero-btn-primary">
+        <i class="bi bi-grid-fill"></i>
+        Browse Products
+      </a>
+      <a routerLink="/sell-product" class="hero-btn-secondary">
+        <i class="bi bi-plus-circle-fill"></i>
+        Sell Something
+      </a>
     </div>
+
+    <!-- Stats + Trust in one compact row -->
+    <div class="hero-bottom">
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">5K+</span>
+          <span class="stat-label">Products</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">30K+</span>
+          <span class="stat-label">Students</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">1K+</span>
+          <span class="stat-label">Deals</span>
+        </div>
+      </div>
+      <div class="trust-pills">
+        <span class="trust-pill"><i class="bi bi-patch-check-fill"></i> Verified</span>
+        <span class="trust-pill"><i class="bi bi-shield-fill"></i> Safe</span>
+        <span class="trust-pill"><i class="bi bi-chat-fill"></i> Chat</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right: Hero Image -->
+  <div class="hero-visual">
+    <div class="hero-img-container">
+      <img src="/hero.png" alt="CampusKart – Buy and Sell at LPU" />
+      <div class="img-label">
+        <i class="bi bi-buildings-fill"></i>
+        LPU Campus Marketplace
+      </div>
+    </div>
+  </div>
+
 </section>

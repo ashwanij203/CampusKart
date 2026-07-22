@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CartService {
-  private apiUrl = 'http://localhost:5000/api/cart';
+  private apiUrl = '/api/cart';
 
   constructor(private http: HttpClient) {}
 
@@ -30,3 +30,4 @@ export class CartService {
     return this.http.delete(`${this.apiUrl}/clear`);
   }
 }
+

@@ -1,6 +1,51 @@
 <section class="section">
-  <h1 class="section-title">Browse Products</h1>
-  <p class="section-subtitle">Find the best deals from verified LPU students.</p>
+  <!-- Dynamic heading based on active category filter -->
+  <h1 class="section-title">
+    @if (selectedCategory !== 'All') {
+      {{ selectedCategory }}
+    } @else {
+      Browse Products
+    }
+  </h1>
+  <p class="section-subtitle">
+    @if (selectedCategory !== 'All') {
+      Showing all <strong>{{ selectedCategory }}</strong> listings from LPU students.
+    } @else {
+      Find the best deals from verified LPU students.
+    }
+  </p>
+
+  <!-- Active filter chips -->
+  @if (selectedCategory !== 'All' || selectedCondition !== 'All' || searchTerm || selectedPriceRange) {
+    <div class="filter-chips">
+      <span class="chips-label">Active filters:</span>
+      @if (selectedCategory !== 'All') {
+        <span class="chip">
+          <i class="bi bi-tag"></i> {{ selectedCategory }}
+          <button class="chip-remove" (click)="selectedCategory = 'All'; applyFilters()">×</button>
+        </span>
+      }
+      @if (selectedCondition !== 'All') {
+        <span class="chip">
+          <i class="bi bi-stars"></i> {{ selectedCondition }}
+          <button class="chip-remove" (click)="selectedCondition = 'All'; applyFilters()">×</button>
+        </span>
+      }
+      @if (searchTerm) {
+        <span class="chip">
+          <i class="bi bi-search"></i> "{{ searchTerm }}"
+          <button class="chip-remove" (click)="searchTerm = ''; applyFilters()">×</button>
+        </span>
+      }
+      @if (selectedPriceRange) {
+        <span class="chip">
+          <i class="bi bi-currency-rupee"></i> Price filter
+          <button class="chip-remove" (click)="selectedPriceRange = ''; applyFilters()">×</button>
+        </span>
+      }
+      <button class="clear-all-btn" (click)="resetFilters()">Clear All</button>
+    </div>
+  }
 
   <div class="marketplace">
     <!-- SIDEBAR FILTERS -->
@@ -52,9 +97,12 @@
       <div class="top-bar">
         <p>
           @if (isLoading) {
-            Loading...
+            <span class="loading-text"><i class="bi bi-arrow-repeat spin"></i> Loading...</span>
           } @else {
-            Showing {{ products.length }} product(s)
+            <strong>{{ products.length }}</strong> product{{ products.length !== 1 ? 's' : '' }} found
+            @if (selectedCategory !== 'All') {
+              in <span class="cat-tag">{{ selectedCategory }}</span>
+            }
           }
         </p>
         <select class="input sort" [(ngModel)]="selectedSort" (ngModelChange)="applyFilters()">
@@ -70,9 +118,18 @@
       }
 
       @if (isLoading) {
-        <div class="loading-state">
-          <i class="bi bi-arrow-repeat spin"></i>
-          <p>Loading products...</p>
+        <!-- Skeleton loading cards -->
+        <div class="products-grid">
+          @for (i of [1,2,3,4,5,6]; track i) {
+            <div class="product-card card skeleton-card">
+              <div class="skeleton-img"></div>
+              <div class="skeleton-body">
+                <div class="skeleton-line long"></div>
+                <div class="skeleton-line short"></div>
+                <div class="skeleton-line medium"></div>
+              </div>
+            </div>
+          }
         </div>
       }
 
@@ -80,42 +137,57 @@
         <div class="empty-state">
           <i class="bi bi-search"></i>
           <h3>No products found</h3>
-          <p>Try adjusting your filters or search term.</p>
+          <p>
+            @if (selectedCategory !== 'All') {
+              No <strong>{{ selectedCategory }}</strong> listings yet. Be the first to sell one!
+            } @else {
+              Try adjusting your filters or search term.
+            }
+          </p>
           <button class="btn btn-primary" (click)="resetFilters()">Clear Filters</button>
         </div>
       }
 
-      <div class="products-grid">
-        @for (product of products; track product._id) {
-          <div class="product-card card">
-            <div class="card-top">
-              <button
-                class="wishlist-btn"
-                [class.active]="isWishlisted(product)"
-                (click)="toggleWishlist(product)"
-                title="Add to wishlist">
-                <i class="bi" [class.bi-heart-fill]="isWishlisted(product)" [class.bi-heart]="!isWishlisted(product)"></i>
-              </button>
-            </div>
+      @if (!isLoading) {
+        <div class="products-grid">
+          @for (product of products; track product._id) {
+            <div class="product-card card">
+              <div class="card-top">
+                <button
+                  class="wishlist-btn"
+                  [class.active]="isWishlisted(product)"
+                  (click)="toggleWishlist(product)"
+                  title="Add to wishlist">
+                  <i class="bi" [class.bi-heart-fill]="isWishlisted(product)" [class.bi-heart]="!isWishlisted(product)"></i>
+                </button>
+              </div>
 
-            <div class="card-image">
-              <img [src]="getProductImage(product)" [alt]="product.title" />
-            </div>
+              <div class="card-image">
+                <img
+                  [src]="getProductImage(product)"
+                  [alt]="product.title"
+                  onerror="this.src='https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&auto=format&fit=crop'" />
+              </div>
 
-            <div class="card-body">
-              <h3>{{ product.title }}</h3>
-              <p class="price">₹{{ product.price }}</p>
-              <p class="meta"><i class="bi bi-geo-alt"></i> {{ product.location }}</p>
-              <p class="meta"><i class="bi bi-person"></i> {{ getSellerName(product.seller) }}</p>
-              <span class="badge">{{ product.condition }}</span>
+              <div class="card-body">
+                <span class="badge">{{ product.condition }}</span>
+                @if (product.category) {
+                  <span class="cat-badge">{{ product.category }}</span>
+                }
+                <h3>{{ product.title }}</h3>
+                <p class="price">₹{{ product.price | number }}</p>
+                <p class="meta"><i class="bi bi-geo-alt"></i> {{ product.location }}</p>
+                <p class="meta"><i class="bi bi-person"></i> {{ getSellerName(product.seller) }}</p>
+                <p class="meta time-meta"><i class="bi bi-clock"></i> {{ formatDate(product.createdAt) }}</p>
 
-              <a [routerLink]="['/product', product._id]" class="btn btn-primary view-btn">
-                View Details
-              </a>
+                <a [routerLink]="['/product', product._id]" class="btn btn-primary view-btn">
+                  View Details
+                </a>
+              </div>
             </div>
-          </div>
-        }
-      </div>
+          }
+        </div>
+      }
     </div>
   </div>
 </section>

@@ -235,3 +235,24 @@ exports.myProducts = async (req, res) => {
     });
   }
 };
+
+// ================= CATEGORY COUNTS =================
+
+exports.getCategoryCounts = async (req, res) => {
+  try {
+    const counts = await Product.aggregate([
+      { $group: { _id: "$category", count: { $sum: 1 } } },
+      { $project: { category: "$_id", count: 1, _id: 0 } },
+    ]);
+
+    // Build a map: { Books: 12, Electronics: 5, ... }
+    const countsMap = {};
+    counts.forEach((c) => {
+      if (c.category) countsMap[c.category] = c.count;
+    });
+
+    res.status(200).json({ success: true, counts: countsMap });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};

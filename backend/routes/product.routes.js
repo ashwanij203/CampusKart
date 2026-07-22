@@ -15,7 +15,9 @@ updateProduct,
 
 deleteProduct,
 
-myProducts
+myProducts,
+
+getCategoryCounts
 
 }=require("../controllers/product.controller");
 
@@ -30,6 +32,8 @@ router.post("/", verifyToken, upload.array("images", 5),addProduct);
 router.get("/",getProducts);
 
 router.get("/my-products",verifyToken,myProducts);
+
+router.get("/category-counts",getCategoryCounts);
 
 router.get("/:id",getProduct);
 

@@ -1,7 +1,7 @@
 <nav class="navbar">
   <!-- Logo -->
   <a routerLink="/" class="logo">
-    <i class="bi bi-shop"></i>
+    <img src="favicon.png" alt="CampusKart Logo" class="logo-img" />
     <span>CampusKart</span>
   </a>
 
@@ -19,6 +19,15 @@
 
   <!-- Right Icons -->
   <div class="nav-right">
+    <!-- Dark Mode Toggle -->
+    <button class="theme-toggle" (click)="toggleTheme()" [title]="isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'" id="theme-toggle-btn" aria-label="Toggle dark mode">
+      @if (isDark) {
+        <i class="bi bi-sun-fill"></i>
+      } @else {
+        <i class="bi bi-moon-stars-fill"></i>
+      }
+    </button>
+
     @if (isLoggedIn) {
       <!-- Wishlist -->
       <a routerLink="/wishlist" class="nav-icon-btn" title="Wishlist">
@@ -45,3 +54,4 @@
     </button>
   </div>
 </nav>
+

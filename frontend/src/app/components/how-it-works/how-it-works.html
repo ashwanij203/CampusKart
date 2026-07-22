@@ -1,18 +1,20 @@
-<section class="how">
-    <h2>How CampusKart Works</h2>
-    <div class="steps">
-        @for(step of steps; track step.title){
-            <div class="step-card">
-                <div class="icon">
-                    {{step.icon}}
-                </div>
-                <h3>
-                    {{step.title}}
-                </h3>
-                <p>
-                    {{step.description}}
-                </p>
-            </div>
-        }
+<section class="how-section">
+  <div class="how-inner">
+    <p class="section-eyebrow">Simple Process</p>
+    <h2 class="section-heading">How CampusKart Works</h2>
+    <p class="section-subheading">
+      Get started in minutes — browse, connect and close deals right on campus.
+    </p>
+
+    <div class="steps-grid">
+      @for(step of steps; track step.title; let i = $index){
+        <div class="step-card">
+          <div class="step-num">{{ i + 1 }}</div>
+          <span class="step-emoji">{{ step.icon }}</span>
+          <h3 class="step-title">{{ step.title }}</h3>
+          <p class="step-desc">{{ step.description }}</p>
+        </div>
+      }
     </div>
+  </div>
 </section>

@@ -1,104 +1,222 @@
-/*  Google Font*/
+/* Google Font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-/* 2. CSS Variables */
-:root{
-  --primary:#2563eb;
-  --primary-dark:#1d4ed8;
-  --secondary:#7c3aed;
-  --success:#22c55e;
-  --danger:#ef4444;
-  --bg:#f8fafc;
-  --card:#ffffff;
-  --text:#0f172a;
-  --text-light:#64748b;
-  --border:#e2e8f0;
-  --radius:18px;
-  --shadow:0 10px 30px rgba(15,23,42,.08);
+
+/* ── Light Theme Variables (default) ── */
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --secondary: #7c3aed;
+  --success: #22c55e;
+  --danger: #ef4444;
+
+  /* Light palette */
+  --bg: #f8fafc;
+  --bg-alt: #f1f5f9;
+  --card: #ffffff;
+  --card-hover: #f8fafc;
+  --text: #0f172a;
+  --text-light: #64748b;
+  --border: #e2e8f0;
+  --navbar-bg: #ffffff;
+  --input-bg: #ffffff;
+  --badge-bg: #dbeafe;
+  --badge-color: #2563eb;
+
+  --radius: 18px;
+  --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 20px 50px rgba(15, 23, 42, 0.12);
 }
-/* 3. Global Reset */
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
+
+/* ── Dark Theme Variables ── */
+[data-theme="dark"] {
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --secondary: #8b5cf6;
+  --success: #4ade80;
+  --danger: #f87171;
+
+  /* Dark palette */
+  --bg: #0d1117;
+  --bg-alt: #161b22;
+  --card: #1c2333;
+  --card-hover: #21293a;
+  --text: #e6edf3;
+  --text-light: #8b949e;
+  --border: #30363d;
+  --navbar-bg: #13192a;
+  --input-bg: #1c2333;
+  --badge-bg: #1e3a5f;
+  --badge-color: #60a5fa;
+
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
-html{
-    scroll-behavior:smooth;
+
+/* ── Global Reset ── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
-body{
-    background:var(--bg);
-    color:var(--text);
+
+html {
+  scroll-behavior: smooth;
 }
-/* 4. Reusable Buttons */
-.btn{
-    padding:14px 30px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    font-weight:600;
-    transition:.3s;
+
+/* Smooth theme transitions */
+body,
+body * {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
-.btn-primary{
-    background:var(--primary);
-    color:white;
+
+body {
+  background: var(--bg);
+  color: var(--text);
 }
-.btn-primary:hover{
-    background:var(--primary-dark);
-    transform:translateY(-3px);
+
+/* ── Reusable Buttons ── */
+.btn {
+  padding: 14px 30px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
 }
-.btn-secondary{
-    background:white;
-    color:var(--primary);
-    border:2px solid var(--primary);
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
 }
-.btn-secondary:hover{
-    background:var(--primary);
-    color:white;
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
 }
-.card{
-background:white;
-border-radius:18px;
-padding:25px;
-box-shadow:var(--shadow);
-transition:.3s;
+
+.btn-secondary {
+  background: var(--card);
+  color: var(--primary);
+  border: 2px solid var(--primary);
 }
-.card:hover{
-transform:translateY(-8px);
+
+.btn-secondary:hover {
+  background: var(--primary);
+  color: white;
 }
-.input{
-width:100%;
-padding:14px;
-border-radius:12px;
-border:1px solid var(--border);
-font-size:16px;
+
+/* ── Card ── */
+.card {
+  background: var(--card);
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  transition: all 0.3s;
 }
-.input:focus{
-outline:none;
-border-color:var(--primary);
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  background: var(--card-hover);
 }
-.section{
-max-width:1300px;
-margin:auto;
-padding:80px 20px;
+
+/* ── Input ── */
+.input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  font-size: 16px;
+  background: var(--input-bg);
+  color: var(--text);
 }
-.section-title{
-text-align:center;
-font-size:42px;
-font-weight:700;
-margin-bottom:20px;
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
-.section-subtitle{
-text-align:center;
-color:var(--text-light);
-margin-bottom:60px;
-font-size:18px;
+
+/* ── Section ── */
+.section {
+  max-width: 1300px;
+  margin: auto;
+  padding: 80px 20px;
 }
-.badge{
-display:inline-block;
-padding:8px 18px;
-border-radius:30px;
-background:#dbeafe;
-color:var(--primary);
-font-size:14px;
-font-weight:600;
+
+.section-title {
+  text-align: center;
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--text);
 }
+
+.section-subtitle {
+  text-align: center;
+  color: var(--text-light);
+  margin-bottom: 60px;
+  font-size: 18px;
+}
+
+/* ── Shared eyebrow / heading / subheading (used across redesigned sections) ── */
+.section-eyebrow {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.section-heading {
+  text-align: center;
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 14px;
+  line-height: 1.2;
+}
+
+.section-subheading {
+  text-align: center;
+  font-size: 17px;
+  color: var(--text-light);
+  max-width: 540px;
+  margin: 0 auto 60px;
+  line-height: 1.7;
+}
+
+/* ── Badge ── */
+.badge {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 30px;
+  background: var(--badge-bg);
+  color: var(--badge-color);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ── Scrollbar (dark mode friendly) ── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-alt);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-light);
+}
+

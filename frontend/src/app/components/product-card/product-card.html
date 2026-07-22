@@ -1,33 +1,24 @@
 <div class="product-card card">
-    <div class="top">
-        <button class="wishlist">
-            <i class="bi bi-heart"></i>
-        </button>
-        @if (product.featured) {
-        <span class="featured"> Featured </span>
-        }
+  <div class="card-top">
+    <span class="condition-tag">{{ product.condition }}</span>
+    @if (product.featured) {
+      <span class="featured-tag">⭐ Featured</span>
+    }
+  </div>
+  <div class="card-image">
+    <img [src]="product.image" [alt]="product.title"
+         onerror="this.src='https://placehold.co/400x220/e2e8f0/64748b?text=No+Image'" />
+  </div>
+  <div class="card-body">
+    <h3 class="card-title">{{ product.title }}</h3>
+    <div class="card-price">₹{{ product.price | number }}</div>
+    <div class="card-meta">
+      <span><i class="bi bi-geo-alt"></i> {{ product.location }}</span>
+      <span><i class="bi bi-person"></i> {{ product.seller }}</span>
     </div>
-    <div class="image">
-        <img [src]="product.image" [alt]="product.title" />
+    <div class="card-footer">
+      <span class="card-time"><i class="bi bi-clock"></i> {{ product.posted }}</span>
+      <a routerLink="/product-details" class="card-btn">View</a>
     </div>
-    <div class="content">
-        <h3>
-            {{ product.title }}
-        </h3>
-        <div class="rating">
-            ★★★★★
-            <span> ({{ product.rating }}) </span>
-        </div>
-        <h2>₹{{ product.price }}</h2>
-        <p>
-            <i class="bi bi-geo-alt"></i>
-            {{ product.location }}
-        </p>
-        <p>👤 {{ product.seller }}</p>
-        <p>⏱ {{ product.posted }}</p>
-        <span class="condition">
-            {{ product.condition }}
-        </span>
-        <a routerLink="/product-details" class="btn btn-primary"> View Details </a>
-    </div>
+  </div>
 </div>
